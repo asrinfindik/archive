@@ -49,7 +49,7 @@ int main(void)
 	int rmenusecim;
 	//int ramenusecim;
 	system("COLOR 0E");
-	printf("Ogrenci isleri otomasyonuna hos geldiniz. Lutfen menuden yapmak istediginiz islemi secip basindaki numarayi tuslayiniz:\n\n");
+	printf("Ogrenci isleri otomasyonuna hos geldiniz. \n\n");
 	printf("1) Ogrenci Islemleri\n");
 	printf("2) Ders Islemleri\n");
 	printf("3) Raporlar\n");
@@ -140,10 +140,10 @@ int main(void)
            			scanf("%s",ogrencinin.dtarihi);
             		printf("Ogrencinin bolumunu giriniz: ");
             		scanf("%s",ogrencinin.bolum);
-            		printf("\n\nOgrenci bilgileri guncelleniyor...\n\n");
+            		printf("\n\nOgrenci bilgileri guncelleniyor...\n\n");*/
 					FILE *ogrencilistesi = fopen("ogrenciler.txt","wb+");
             		fprintf(ogrencilistesi,"%s\t %s\t %s\t %s\t %s\t %s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
-					Sleep(3000);*/
+					Sleep(3000);
     				printf("\a\n\nIslem tamamlandi.");
     				printf("\n\n30 saniye icinde ana menuye donulecek.\n");
     				Sleep(30000);
@@ -186,10 +186,10 @@ int main(void)
     		        ogrencinin.bolum = (char*)malloc(sizeof(char)*100);
             		while(!feof(ogrencilistesi))
             		{
-            			fscanf(ogrencilistesi,"%s %s %s %s %s %s",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
+            			fscanf(ogrencilistesi,"%s %s %s %s %s %s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
                 		if(strcmp(ogrencinin.no,no)==0)
                 		{
-                			fscanf(ogrencilistesi,"%s %s %s %s %s %s",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
+                			fscanf(ogrencilistesi,"%s %s %s %s %s %s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
 			 			}
 			 			else
 			 			{
@@ -199,12 +199,10 @@ int main(void)
 					fclose(ogrencilistesi);
 					fclose(yogrencilistesi);
 					remove("ogrenciler.txt");
-					Sleep(3000);
+					Sleep(1000);
 					rename("yogrenciler.txt","ogrenciler.txt");
-					Sleep(3000);
+					Sleep(1000);
     				printf("\a\n\nIslem tamamlandi.");
-   					printf("\n\n5 saniye icinde ana menuye donulecek.\n");
-    				Sleep(5000);
 					printf("\nAna menuye geri yonlendiriliyorsunuz...");
 					Sleep(1500);
 					system("cls");
@@ -355,7 +353,28 @@ int main(void)
 		scanf("%d" , &rmenusecim);
 		if( rmenusecim == 1 )
 		{
-			
+			system("cls");
+			printf("Ogrenci Transkript Menusu\n\n");
+			printf("Ogrenci Notlari\n\n");
+			printf("Ad\t Ikinci Ad\t Soyad\t No\t Dogum Tarihi\t Bolum\n\n");
+			FILE *ogrencidersnotlari;
+    		char ch;
+    		ogrencidersnotlari = fopen("ogrenci_ders_notlari.txt", "r");
+    		do
+			{
+    			ch = getc(ogrencidersnotlari);
+    			printf("%c", ch);
+    		} 
+			while (ch != EOF);
+			fclose(ogrencidersnotlari);
+			Sleep(3000);
+    		printf("\a\n\nIslem tamamlandi.");
+    		printf("\n\n30 saniye icinde ana menuye donulecek.\n");
+    		Sleep(30000);
+			printf("\nAna menuye geri yonlendiriliyorsunuz...");
+			Sleep(1500);
+			system("cls");
+			main();	
 		}
 		if( rmenusecim == 2 )
 		{
@@ -374,7 +393,7 @@ int main(void)
 			while (ch != EOF);
 			fclose(ogrencilistesi);
 			Sleep(3000);
-    		printf("\a\n\nIslem tamamlandi.", ch);
+    		printf("\a\n\nIslem tamamlandi.");
     		printf("\n\n30 saniye icinde ana menuye donulecek.\n");
     		Sleep(30000);
 			printf("\nAna menuye geri yonlendiriliyorsunuz...");
