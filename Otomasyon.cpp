@@ -430,7 +430,7 @@ int main(void)
             while(!feof(derslistesi))
 			{
                 fscanf(derslistesi,"%s\t%s\t%s\n",ogrencinin.no,dersin.kodu,dersin.adi);
-                if(strcmp(ogrencinin.no,ogrencino)==0 && (dersin.kodu,derskodu)==0)
+                if(strcmp(ogrencinin.no,ogrencino)==0 && strcmp(dersin.kodu,derskodu)==0)
 				{
 					printf("Ogrencinin notunu giriniz: ");
             		scanf("%s",dersin.notu);
@@ -480,10 +480,10 @@ int main(void)
             printf("No\tDers Kodu\tDers Notu\n\n");
 			while(!feof(derslistesi))
 			{
-                fscanf(derslistesi,"%s\t%s\t%s\n",ogrencinin.no,dersin.kodu,dersin.notu);
+                fscanf(derslistesi,"%s\t%s\t\t%s\n",ogrencinin.no,dersin.kodu,dersin.notu);
                 if(strcmp(ogrencinin.no,ogrencino)==0 && strcmp(dersin.kodu,derskodu)==0)
 				{
-					printf("%s\t%s\t%s\n",ogrencinin.no,dersin.kodu,dersin.notu);	
+					printf("%s\t%s\t\t%s\n",ogrencinin.no,dersin.kodu,dersin.notu);	
                 }
                 else if(strcmp(ogrencinin.no,ogrencino)!=0 || strcmp(dersin.kodu,derskodu)!=0)
                 {
@@ -540,7 +540,7 @@ int main(void)
 			system("cls");
 			printf("Ogrenci Transkript Menusu\n\n");
 			printf("Ogrenci Notlari\n\n");
-			printf("Ad\tIkinci Ad\tSoyad\tNo\tDogum Yili\tBolum\n\n");
+			printf("No\t\tDers Kodu\tDers Notu\n\n");
 			FILE *ogrencidersnotlari = fopen("ogrenci_ders_notlari.txt", "r");
     		char ch;
     		do
@@ -565,7 +565,7 @@ int main(void)
 			system("cls");
 			printf("Kayitli Ogrenciler Menusu\n\n");
 			printf("Ogrenci Listesi\n\n");
-			printf("Ad\t Ikinci Ad\t Soyad\t No\t Dogum Tarihi\t Bolum\n\n");
+			printf("Ad\tIkinci Ad\tSoyad\tNo\tDogum Yili\tBolum\n\n");
 			FILE *ogrencilistesi = fopen("ogrenciler.txt", "r");
     		char ch;
     		do
