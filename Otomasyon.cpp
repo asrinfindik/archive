@@ -24,31 +24,29 @@ Hello World!
 
 struct ogrenci
 {
-	char * isim;
-	char * disim;
-	char * soyisim;
-	char * no;
-	char * dtarihi;
-	char * bolum;
-};
+	char isim[100];
+	char disim[100];
+	char soyisim[100];
+	char no[100];
+	char dtarihi[100];
+	char bolum[100];
+}ogrencinin;
 
 struct ders
 {
-	char * kodu;
-	char * adi;
-};
+	char kodu[100];
+	char adi[100];
+	char notu[100];
+}dersin;
 
 int main(void)
 {
-	typedef ogrenci bilgiler;
-	typedef ders dersbilgileri;
 	char c;
 	int anamenusecim;
 	int oimenusecim;
 	int dimenusecim;
 	int rmenusecim;
-	//int ramenusecim;
-	system("COLOR 0E");
+	system("COLOR 0F");
 	printf("Ogrenci isleri otomasyonuna hos geldiniz. \n\n");
 	printf("1) Ogrenci Islemleri\n");
 	printf("2) Ders Islemleri\n");
@@ -72,13 +70,6 @@ int main(void)
 		{
 			system("cls");
 			printf("Yeni Ogrenci Kayit Menusu\n\n");
-			bilgiler ogrencinin;
-			ogrencinin.isim = (char*)malloc(sizeof(char)*20);
-			ogrencinin.disim = (char*)malloc(sizeof(char)*20);
-			ogrencinin.soyisim = (char*)malloc(sizeof(char)*20);
-			ogrencinin.no = (char*)malloc(sizeof(char)*20);
-			ogrencinin.dtarihi = (char*)malloc(sizeof(char)*20);
-            ogrencinin.bolum = (char*)malloc(sizeof(char)*20);
             printf("Ogrencinin adini giriniz: ");
             scanf("%s",ogrencinin.isim);
             printf("Ogrencinin ikinci adiniz giriniz: ");
@@ -93,7 +84,7 @@ int main(void)
             scanf("%s",ogrencinin.bolum);
             printf("\n\nKayit ediliyor...\n\n");
 			FILE *ogrencilistesi = fopen("ogrenciler.txt","a");
-            fprintf(ogrencilistesi,"%s\t %s\t %s\t %s\t %s\t %s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
+            fprintf(ogrencilistesi,"%s\t%s\t%s\t%s\t%s\t%s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
 			fclose(ogrencilistesi);
 			Sleep(2000);
 			printf("\aKayit basari ile gerceklestirildi.\n\n");
@@ -110,23 +101,16 @@ int main(void)
             printf("Ogrenci Kayit Guncelleme Menusu\n\n");
             printf("Ogrencinin no giriniz: ");
             scanf("%s",no);
-            bilgiler ogrencinin;
+            int kontrol;
 			FILE *ogrencilistesi = fopen("ogrenciler.txt","r");
-			ogrencinin.isim = (char*)malloc(sizeof(char)*100);
-			ogrencinin.disim = (char*)malloc(sizeof(char)*100);
-			ogrencinin.soyisim = (char*)malloc(sizeof(char)*100);
-			ogrencinin.no = (char*)malloc(sizeof(char)*100);
-			ogrencinin.dtarihi = (char*)malloc(sizeof(char)*100);
-            ogrencinin.bolum = (char*)malloc(sizeof(char)*100);
-            while(!feof(ogrencilistesi))
+			FILE *yogrencilistesi = fopen("yogrenciler.txt","w");
+            kontrol = 0;
+		   	while(!feof(ogrencilistesi))
 			{
-                fscanf(ogrencilistesi,"%s %s %s %s %s %s",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
+                fscanf(ogrencilistesi,"%s\t%s\t%s\t%s\t%s\t%s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
                 if(strcmp(ogrencinin.no,no)==0)
 				{
-					printf("\nOgrenci Bilgileri\n\n");
-                    printf("%s %s %s %s %s %s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
-                    Sleep(2000);
-					/*printf("\n\nGuncelleme ekrani hazirlaniyor.\n\n");
+					printf("\n\nGuncelleme ekrani hazirlaniyor.\n\n");
 					Sleep(2000);
 					printf("Ogrencinin adini giriniz: ");
             		scanf("%s",ogrencinin.isim);
@@ -136,28 +120,44 @@ int main(void)
             		scanf("%s",ogrencinin.soyisim);
             		printf("Ogrencinin no giriniz: ");
             		scanf("%s",ogrencinin.no);
-            		printf("Ogrencinin dogum tarihini giriniz: ");
+            		printf("Ogrencinin dogum yili giriniz: ");
            			scanf("%s",ogrencinin.dtarihi);
             		printf("Ogrencinin bolumunu giriniz: ");
             		scanf("%s",ogrencinin.bolum);
-            		printf("\n\nOgrenci bilgileri guncelleniyor...\n\n");*/
-					FILE *ogrencilistesi = fopen("ogrenciler.txt","wb+");
-            		fprintf(ogrencilistesi,"%s\t %s\t %s\t %s\t %s\t %s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
-					Sleep(3000);
-    				printf("\a\n\nIslem tamamlandi.");
-    				printf("\n\n30 saniye icinde ana menuye donulecek.\n");
-    				Sleep(30000);
-					printf("\nAna menuye geri yonlendiriliyorsunuz...");
-					Sleep(1500);
-					system("cls");
-					main();
+            		printf("\n\nOgrenci bilgileri guncelleniyor...\n\n");
+            		fprintf(yogrencilistesi,"%s\t%s\t%s\t%s\t%s\t%s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
                 }
 				else
 				{
-					//printf("\nOgrenci bulunamadi.\n\n");
-				}                        
-            }     
+					fprintf(yogrencilistesi,"%s\t%s\t%s\t%s\t%s\t%s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);	
+				}                   
+            }
+            fclose(yogrencilistesi);
             fclose(ogrencilistesi);
+			remove("ogrenciler.txt");
+			Sleep(1000);
+			rename("yogrenciler.txt","ogrenciler.txt");
+			Sleep(1000);
+			
+			if(kontrol==0)
+            {
+				printf("\a\n\nOgrenci bulunamadi.\n\n");
+				fclose(yogrencilistesi);
+            	fclose(ogrencilistesi);
+            	remove("yogrenciler.txt");
+    			Sleep(2000);
+				printf("\nAna menuye geri yonlendiriliyorsunuz...");
+				Sleep(1500);
+				system("cls");
+				main();    
+			}
+			
+    		printf("\a\n\nIslem tamamlandi.");
+    		Sleep(2000);
+			printf("\n\nAna menuye geri yonlendiriliyorsunuz...");
+			Sleep(1500);
+			system("cls");
+			main();
 		}
 		if( oimenusecim == 3 )
 		{
@@ -167,6 +167,7 @@ int main(void)
             printf("Ogrenci Silme Menusu\n\n");
             printf("Ogrencinin no giriniz: ");
             scanf("%s",no);
+            int kontrol;
 			printf("\nOgrenci kaydini silmek istediginize emin misiniz? (E/H)\n\n");
 			printf("Cevabiniz: ");
 			scanf(" %c" , &ogrencisilmesecim);
@@ -175,25 +176,19 @@ int main(void)
 				if (ogrencisilmesecim == 'e' || ogrencisilmesecim == 'E')
 				{
 					printf("\n\nOgrenci siliniyor...");
-            		bilgiler ogrencinin;
 					FILE *ogrencilistesi = fopen("ogrenciler.txt","r");
 					FILE *yogrencilistesi = fopen("yogrenciler.txt","w");
-					ogrencinin.isim = (char*)malloc(sizeof(char)*100);
-					ogrencinin.disim = (char*)malloc(sizeof(char)*100);
-					ogrencinin.soyisim = (char*)malloc(sizeof(char)*100);
-					ogrencinin.no = (char*)malloc(sizeof(char)*100);
-					ogrencinin.dtarihi = (char*)malloc(sizeof(char)*100);
-    		        ogrencinin.bolum = (char*)malloc(sizeof(char)*100);
+					kontrol = 0;
             		while(!feof(ogrencilistesi))
             		{
-            			fscanf(ogrencilistesi,"%s %s %s %s %s %s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
+            			fscanf(ogrencilistesi,"%s\t%s\t%s\t%s\t%s\t%s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
                 		if(strcmp(ogrencinin.no,no)==0)
                 		{
-                			fscanf(ogrencilistesi,"%s %s %s %s %s %s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
+                			
 			 			}
 			 			else
 			 			{
-			 				fprintf(yogrencilistesi,"%s\t %s\t %s\t %s\t %s\t %s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
+			 				fprintf(yogrencilistesi,"%s\t%s\t%s\t%s\t%s\t%s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
 						}
 					}
 					fclose(ogrencilistesi);
@@ -202,14 +197,28 @@ int main(void)
 					Sleep(1000);
 					rename("yogrenciler.txt","ogrenciler.txt");
 					Sleep(1000);
-    				printf("\a\n\nIslem tamamlandi.");
-					printf("\nAna menuye geri yonlendiriliyorsunuz...");
+    				
+    				if(kontrol==0)
+            		{
+						printf("\a\n\nOgrenci bulunamadi.\n\n");
+						fclose(yogrencilistesi);
+            			fclose(ogrencilistesi);
+            			remove("yogrenciler.txt");
+    					Sleep(2000);
+						printf("\nAna menuye geri yonlendiriliyorsunuz...");
+						Sleep(1500);
+						system("cls");
+						main();    
+					}
+					
+					printf("\a\n\nIslem tamamlandi.");
+    				Sleep(2000);
+					printf("\n\nAna menuye geri yonlendiriliyorsunuz...");
 					Sleep(1500);
 					system("cls");
 					main();
 				}
-				else	
-				if (ogrencisilmesecim == 'h' || ogrencisilmesecim == 'H')
+				else if (ogrencisilmesecim == 'h' || ogrencisilmesecim == 'H')
 				{
 					printf("\a\nIslem iptal edildi.\n\n");
 					Sleep(2000);
@@ -218,39 +227,16 @@ int main(void)
 					system("cls");
 					main();
 				}
+				else
+				{
+					printf("\a\nYanlis islem yapildi.\n\n");
+					Sleep(2000);
+					printf("Ana menuye geri donuyorsunuz...");
+					Sleep(1500);
+					system("cls");
+					main();
+				}
 			}
-            /*printf("\n\nOgrenci siliniyor...");
-            bilgiler ogrencinin;
-			FILE *ogrencilistesi = fopen("ogrenciler.txt","r");
-			FILE *yogrencilistesi = fopen("yogrenciler.txt","w");
-			ogrencinin.isim = (char*)malloc(sizeof(char)*100);
-			ogrencinin.disim = (char*)malloc(sizeof(char)*100);
-			ogrencinin.soyisim = (char*)malloc(sizeof(char)*100);
-			ogrencinin.no = (char*)malloc(sizeof(char)*100);
-			ogrencinin.dtarihi = (char*)malloc(sizeof(char)*100);
-            ogrencinin.bolum = (char*)malloc(sizeof(char)*100);
-            while(!feof(ogrencilistesi))
-            {
-            	fscanf(ogrencilistesi,"%s %s %s %s %s %s",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
-                if(strcmp(ogrencinin.no,no)==0)
-                {
-                	fscanf(ogrencilistesi,"%s %s %s %s %s %s",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
-			 	}
-			 	fprintf(yogrencilistesi,"%s\t %s\t %s\t %s\t %s\t %s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
-			}
-			fclose(ogrencilistesi);
-			fclose(yogrencilistesi);
-			remove("ogrenciler.txt");
-			Sleep(3000);
-			rename("yogrenciler.txt","ogrenciler.txt");
-			Sleep(3000);
-    		printf("\n\nIslem tamamlandi.");
-   			printf("\n\n5 saniye icinde ana menuye donulecek.\n");
-    		Sleep(5000);
-			printf("\nAna menuye geri yonlendiriliyorsunuz...");
-			Sleep(1500);
-			system("cls");
-			main();*/
 		}
 		if( oimenusecim == 4 )
 		{
@@ -266,7 +252,7 @@ int main(void)
 		printf("Ders Islemleri Menusu\n\n");
 		printf("1) Ogrenci Ders Secimi Yapma\n");
 		printf("2) Ogrenci Ders Secimi Silme\n");
-		printf("3) Ogrenci Ders Notu Giris\n");
+		printf("3) Ogrenci Ders Notu Girme\n");
 		printf("4) Ogrenci Ders Notu Goruntuleme\n");
 		printf("5) Ana menuye don.\n\n");
 		
@@ -279,59 +265,257 @@ int main(void)
             printf("Ogrenci Ders Secimi Yapma Menusu\n\n");
             printf("Ogrencinin no giriniz: ");
             scanf("%s",no);
-            bilgiler ogrencinin;
+            int kontrol;
 			FILE *ogrencilistesi = fopen("ogrenciler.txt","r");
-			ogrencinin.isim = (char*)malloc(sizeof(char)*100);
-			ogrencinin.disim = (char*)malloc(sizeof(char)*100);
-			ogrencinin.soyisim = (char*)malloc(sizeof(char)*100);
-			ogrencinin.no = (char*)malloc(sizeof(char)*100);
-			ogrencinin.dtarihi = (char*)malloc(sizeof(char)*100);
-            ogrencinin.bolum = (char*)malloc(sizeof(char)*100);
+			kontrol = 0;
             while(!feof(ogrencilistesi))
 			{
-                fscanf(ogrencilistesi,"%s %s %s %s %s %s",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
+                fscanf(ogrencilistesi,"%s\t%s\t%s\t%s\t%s\t%s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
                 if(strcmp(ogrencinin.no,no)==0)
 				{
-					dersbilgileri dersin;
-					printf("\nOgrenci Bilgileri\n\n");
-                    printf("%s %s %s %s %s %s\n",ogrencinin.isim,ogrencinin.disim,ogrencinin.soyisim,ogrencinin.no,ogrencinin.dtarihi,ogrencinin.bolum);
-                    Sleep(2000);
-                    dersin.kodu = (char*)malloc(sizeof(char)*20);
-					dersin.adi = (char*)malloc(sizeof(char)*20);
-					printf("Dersin kodunu giriniz: ");
+					printf("\nDersin kodunu giriniz: ");
             		scanf("%s",dersin.kodu);
             		printf("Dersin adini giriniz: ");
             		scanf("%s",dersin.adi);
             		printf("\n\nKayit ediliyor...\n\n");
 					FILE *derslistesi = fopen("ogrenci_dersler.txt","a");
-            		fprintf(derslistesi,"%s\t %s\n",dersin.kodu,dersin.adi);
-            		fclose(derslistesi);
-					Sleep(2000);
-					printf("\aKayit basari ile gerceklestirildi.\n\n");
-					Sleep(2000);
-					printf("Ana menuye geri yonlendiriliyorsunuz...");
-					Sleep(1500);
-					system("cls");
-					main();	
+            		fprintf(derslistesi,"%s\t%s\t%s\n",ogrencinin.no,dersin.kodu,dersin.adi);
+            		fclose(derslistesi);		
                 }
-				else
-				{
-					//printf("\nOgrenci bulunamadi.\n\n");
-				}                        
-            }     
-            fclose(ogrencilistesi);
+            }
+        fclose(ogrencilistesi);
+		
+		if(kontrol==0)
+		{
+			printf("\a\n\nOgrenci bulunamadi.\n\n");
+    		Sleep(2000);
+			printf("\nAna menuye geri yonlendiriliyorsunuz...");
+			Sleep(1500);
+			system("cls");
+			main();  
+		}
+		
+		Sleep(2000);
+		printf("\aKayit basari ile gerceklestirildi.\n\n");
+		Sleep(2000);
+		printf("Ana menuye geri yonlendiriliyorsunuz...");
+		Sleep(1500);
+		system("cls");
+		main();
 		}
 		if( dimenusecim == 2 )
 		{
-			
+			system("cls");
+			char oderssilmesecim;
+            char ogrencino[30];
+            char derskodu[30];
+            printf("Ogrenci Ders Secimi Silme Menusu\n\n");
+            printf("Ogrencinin no giriniz: ");
+            scanf("%s",ogrencino);
+            printf("Silmek istediginiz ders kodunu giriniz: ");
+            scanf("%s",derskodu);
+            int kontrol;
+			printf("\nOgrencinin ders secimi kaydini silmek istediginize emin misiniz? (E/H)\n\n");
+			printf("Cevabiniz: ");
+			scanf(" %c" , &oderssilmesecim);
+			while (oderssilmesecim == 'e' || oderssilmesecim == 'E' || oderssilmesecim == 'h' || oderssilmesecim == 'H')
+			{
+				if (oderssilmesecim == 'e' || oderssilmesecim == 'E')
+				{
+					printf("\n\nOgrencinin ders secimi siliniyor...");
+					FILE *derslistesi = fopen("ogrenci_dersler.txt","r");
+					FILE *yderslistesi = fopen("yogrenci_dersler.txt","w");
+					kontrol = 0;
+            		while(!feof(derslistesi))
+            		{
+            			fscanf(derslistesi,"%s\t%s\t%s\n",ogrencinin.no,dersin.kodu,dersin.adi);
+                		if(strcmp(ogrencinin.no,ogrencino)==0 && strcmp(dersin.kodu,derskodu)==0)
+                		{
+                			
+			 			}
+			 			else if(strcmp(ogrencinin.no,ogrencino)!=0 || strcmp(dersin.kodu,derskodu)!=0)
+                		{
+                			printf("Ogrenci veya ders bulunamadi.");
+			 				Sleep(2000);
+							printf("\nAna menuye geri yonlendiriliyorsunuz...");
+							Sleep(1500);
+							system("cls");
+							main();
+						}
+			 			/*else if(strcmp(ogrencinin.no,ogrencino)==0)
+			 			{
+			 				printf("Ders bulunamadi.");
+			 				Sleep(2000);
+							printf("\nAna menuye geri yonlendiriliyorsunuz...");
+							Sleep(1500);
+							system("cls");
+							main();
+						}
+						else if(strcmp(dersin.kodu,derskodu)==0)
+			 			{
+			 				printf("Ogrenci bulunamadi.");
+			 				Sleep(2000);
+							printf("\nAna menuye geri yonlendiriliyorsunuz...");
+							Sleep(1500);
+							system("cls");
+							main();
+						}*/
+			 			else
+			 			{
+			 				fprintf(yderslistesi,"%s\t%s\t%s\n",ogrencinin.no,dersin.kodu,dersin.adi);
+						}
+					}
+					fclose(derslistesi);
+					fclose(yderslistesi);
+					remove("ogrenci_dersler.txt");
+					Sleep(1000);
+					rename("yogrenci_dersler.txt","ogrenci_dersler.txt");
+					Sleep(1000);
+    				
+    				if(kontrol==0)
+            		{
+						printf("\a\n\nOgrenci bulunamadi.\n\n");
+						fclose(yderslistesi);
+            			fclose(derslistesi);
+            			remove("yogrenci_dersler.txt");
+    					Sleep(2000);
+						printf("\nAna menuye geri yonlendiriliyorsunuz...");
+						Sleep(1500);
+						system("cls");
+						main();    
+					}
+					
+					printf("\a\n\nIslem tamamlandi.");
+    				Sleep(2000);
+					printf("\nAna menuye geri yonlendiriliyorsunuz...");
+					Sleep(1500);
+					system("cls");
+					main();
+				}
+				else if (oderssilmesecim == 'h' || oderssilmesecim == 'H')
+				{
+					printf("\a\nIslem iptal edildi.\n\n");
+					Sleep(2000);
+					printf("Ana menuye geri donuyorsunuz...");
+					Sleep(1500);
+					system("cls");
+					main();
+				}
+				else
+				{
+					printf("\a\nYanlis islem yapildi.\n\n");
+					Sleep(2000);
+					printf("Ana menuye geri donuyorsunuz...");
+					Sleep(1500);
+					system("cls");
+					main();
+				}
+			}
 		}
 		if( dimenusecim == 3 )
 		{
-			
+			system("cls");
+            char ogrencino[30];
+            char derskodu[30];
+            char dersnotu[30];
+            printf("Ogrenci Ders Notu Girme Menusu\n\n");
+            printf("Ogrencinin no giriniz: ");
+            scanf("%s",ogrencino);
+            printf("Ders kodunu giriniz: ");
+            scanf("%s",derskodu);
+            int kontrol;
+			FILE *ogrencilistesi = fopen("ogrenciler.txt","r");
+			FILE *derslistesi = fopen("ogrenci_dersler.txt","r");
+			kontrol = 0;
+            while(!feof(derslistesi))
+			{
+                fscanf(derslistesi,"%s\t%s\t%s\n",ogrencinin.no,dersin.kodu,dersin.adi);
+                if(strcmp(ogrencinin.no,ogrencino)==0 && (dersin.kodu,derskodu)==0)
+				{
+					printf("Ogrencinin notunu giriniz: ");
+            		scanf("%s",dersin.notu);
+            		printf("\n\nKayit ediliyor...\n\n");
+					FILE *dersnotlarilistesi = fopen("ogrenci_ders_notlari.txt","a");
+            		fprintf(dersnotlarilistesi,"%s\t%s\t%s\n",ogrencinin.no,dersin.kodu,dersin.notu);
+            		fclose(dersnotlarilistesi);		
+                }
+            }
+        fclose(derslistesi);
+        fclose(ogrencilistesi);
+		
+		if(kontrol==0)
+		{
+			printf("\a\n\nOgrenci bulunamadi.\n\n");
+    		Sleep(2000);
+			printf("\nAna menuye geri yonlendiriliyorsunuz...");
+			Sleep(1500);
+			system("cls");
+			main();  
+		}
+		
+		Sleep(2000);
+		printf("\aKayit basari ile gerceklestirildi.\n\n");
+		Sleep(2000);
+		printf("Ana menuye geri yonlendiriliyorsunuz...");
+		Sleep(1500);
+		system("cls");
+		main();
 		}
 		if( dimenusecim == 4 )
 		{
-			
+			system("cls");
+            char ogrencino[30];
+            char derskodu[30];
+            char dersnotu[30];
+            printf("Ogrenci Ders Notu Gorme Menusu\n\n");
+            printf("Ogrencinin no giriniz: ");
+            scanf("%s",ogrencino);
+            printf("Ders kodunu giriniz: ");
+            scanf("%s",derskodu);
+            int kontrol;
+			FILE *ogrencilistesi = fopen("ogrenciler.txt","r");
+			FILE *derslistesi = fopen("ogrenci_dersler.txt","r");
+			FILE *dersnotlarilistesi = fopen("ogrenci_ders_notlari.txt","r");
+			kontrol = 0;
+            printf("No\tDers Kodu\tDers Notu\n\n");
+			while(!feof(derslistesi))
+			{
+                fscanf(derslistesi,"%s\t%s\t%s\n",ogrencinin.no,dersin.kodu,dersin.notu);
+                if(strcmp(ogrencinin.no,ogrencino)==0 && strcmp(dersin.kodu,derskodu)==0)
+				{
+					printf("%s\t%s\t%s\n",ogrencinin.no,dersin.kodu,dersin.notu);	
+                }
+                else if(strcmp(ogrencinin.no,ogrencino)!=0 || strcmp(dersin.kodu,derskodu)!=0)
+                {
+                	printf("Ogrenci veya ders bulunamadi.");
+			 		Sleep(2000);
+					printf("\nAna menuye geri yonlendiriliyorsunuz...");
+					Sleep(1500);
+					system("cls");
+					main();
+				}
+            }
+        fclose(dersnotlarilistesi);
+        fclose(derslistesi);
+        fclose(ogrencilistesi);
+		
+		if(kontrol==0)
+		{
+			printf("\a\n\nOgrenci bulunamadi.\n\n");
+    		Sleep(2000);
+			printf("\nAna menuye geri yonlendiriliyorsunuz...");
+			Sleep(1500);
+			system("cls");
+			main();  
+		}
+		
+		Sleep(2000);
+		printf("\aKayit basari ile gerceklestirildi.\n\n");
+		Sleep(2000);
+		printf("Ana menuye geri yonlendiriliyorsunuz...");
+		Sleep(1500);
+		system("cls");
+		main();
 		}
 		if( dimenusecim == 5 )
 		{
@@ -356,10 +540,9 @@ int main(void)
 			system("cls");
 			printf("Ogrenci Transkript Menusu\n\n");
 			printf("Ogrenci Notlari\n\n");
-			printf("Ad\t Ikinci Ad\t Soyad\t No\t Dogum Tarihi\t Bolum\n\n");
-			FILE *ogrencidersnotlari;
+			printf("Ad\tIkinci Ad\tSoyad\tNo\tDogum Yili\tBolum\n\n");
+			FILE *ogrencidersnotlari = fopen("ogrenci_ders_notlari.txt", "r");
     		char ch;
-    		ogrencidersnotlari = fopen("ogrenci_ders_notlari.txt", "r");
     		do
 			{
     			ch = getc(ogrencidersnotlari);
@@ -369,6 +552,7 @@ int main(void)
 			fclose(ogrencidersnotlari);
 			Sleep(3000);
     		printf("\a\n\nIslem tamamlandi.");
+    		Sleep(2000);
     		printf("\n\n30 saniye icinde ana menuye donulecek.\n");
     		Sleep(30000);
 			printf("\nAna menuye geri yonlendiriliyorsunuz...");
@@ -382,9 +566,8 @@ int main(void)
 			printf("Kayitli Ogrenciler Menusu\n\n");
 			printf("Ogrenci Listesi\n\n");
 			printf("Ad\t Ikinci Ad\t Soyad\t No\t Dogum Tarihi\t Bolum\n\n");
-			FILE *ogrencilistesi;
+			FILE *ogrencilistesi = fopen("ogrenciler.txt", "r");
     		char ch;
-    		ogrencilistesi = fopen("ogrenciler.txt", "r");
     		do
 			{
     			ch = getc(ogrencilistesi);
@@ -394,6 +577,7 @@ int main(void)
 			fclose(ogrencilistesi);
 			Sleep(3000);
     		printf("\a\n\nIslem tamamlandi.");
+    		Sleep(2000);
     		printf("\n\n30 saniye icinde ana menuye donulecek.\n");
     		Sleep(30000);
 			printf("\nAna menuye geri yonlendiriliyorsunuz...");
@@ -446,7 +630,7 @@ int main(void)
 		printf("\aHatali giris yaptiniz!\n\n");
 		Sleep(2000);
 		printf("Islem geri aliniyor...");
-		Sleep(3000);
+		Sleep(1500);
 		system("cls");
 		main();
 	}
